@@ -1,4 +1,3 @@
-# Parse input
 with open("2022\Day 11\input.txt", "r") as file:
     inp = [monkey.split('\n') for monkey in file.read().split('\n\n')]
 
@@ -20,12 +19,10 @@ for line in inp:
 
     monkeys.append(monkey)
 
-
 # Part 2 setup
 prod_of_tests = 1
 for monkey in monkeys:
     prod_of_tests *= monkey['test']
-
 
 for n in range(10000):
     for i, monkey in enumerate(monkeys):
@@ -33,12 +30,9 @@ for n in range(10000):
             # Monkey inspects item (worry function)
             item = monkey['worry'](item)
             monkey['inspected'] += 1
-            
-            # Part 1: Divide by 3 and round down
-            # item = int(item/3)
-            
-            # Part 2: Modulo by product of all test-values (Could optimise by using Least Common Multiple)
-            item = item % prod_of_tests
+ 
+            # item = int(item/3)            # Part 1: Divide by 3 and round down
+            item = item % prod_of_tests     # Part 2: Modulo by product of all test-values (Could optimise by using Least Common Multiple)
 
             if item % monkey['test']:
                 monkeys[monkey['false']]['items'].append(item)
