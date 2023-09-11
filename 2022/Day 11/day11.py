@@ -24,8 +24,8 @@ prod_of_tests = 1
 for monkey in monkeys:
     prod_of_tests *= monkey['test']
 
-for n in range(10000):
-    for i, monkey in enumerate(monkeys):
+for _ in range(10000):
+    for monkey in monkeys:
         for item in monkey['items']:
             # Monkey inspects item (worry function)
             item = monkey['worry'](item)
