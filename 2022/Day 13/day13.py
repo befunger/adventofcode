@@ -20,7 +20,7 @@ def compareArr(left, right):
         left = [left] if type(left) is int else left
         right = [right] if type(right) is int else right
         return compareArr(left, right)
-    
+
 # Part 1: Recursive list comparator
 index_sum = 0
 for i, [left, right] in enumerate(inp):
@@ -29,7 +29,25 @@ for i, [left, right] in enumerate(inp):
     exec("right =" + right)
     if compareArr(left, right):
         index_sum += i+1 # AoC wants 1-indexing
-print(index_sum)
+print("Part 1:", index_sum)
+
+
+# Part 2: Sorting with the comparator from part 1
+with open("2022\Day 13\input.txt", "r") as file:
+    packets = [line.strip('\n') for line in file.readlines() if line != '\n'] + ["[[2]]", "[[6]]"]
+
+# YEE HAW BABY
+for i, x in enumerate(packets):
+    exec("packets[i] ="+packets[i])
+
+# Unoptimised bubble sort
+n = len(packets)
+for _ in range(n):
+        for j in range(n-1):
+            if not compareArr(packets[j],packets[j + 1]):
+                packets[j], packets[j + 1] = packets[j + 1], packets[j]
+
+print("Part 2:", (packets.index([[2]])+1)*(packets.index([[6]])+1))
 
 
 # Test recursive logic of compareArr
@@ -41,3 +59,4 @@ assert(not compareArr([7,7,7,7], [7,7,7]))
 assert(compareArr([], [3]))
 assert(not compareArr([[[]]], [[]]))
 assert(not compareArr([1,[2,[3,[4,[5,6,7]]]],8,9], [1,[2,[3,[4,[5,6,0]]]],8,9]))
+assert(not compareArr([3], [[[]]]))
