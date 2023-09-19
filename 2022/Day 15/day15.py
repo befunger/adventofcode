@@ -13,12 +13,7 @@ def perimeter(sensor):
     all = set({(x+i, y+j) for i in range(-dist, dist+1) for j in [abs(dist)-abs(i), abs(i)-abs(dist)]}) 
     return set({point for point in all if point[0] >= 0 and point[0] <= 4000000 and point[1] >= 0 and point[1] <= 4000000})
 
-# Part 2:
-# Brute forcing the whole grid is too timely, instead check around each sensors perimeter (manhattan distance to its beacon + 1)
-# For each sensor, check all positions 1 step beyond their "range"
-# Prune positions outside of the 4e6 x 4e6 limit
-# Check that this position is further from each sensor than their beacons
-
+'''Iterates all sensors in range of the y-line and blocks all spaces within their range. Removes actual beacon/sensor positions as these do not count.'''
 def part1(filename):
     with open(filename, "r") as file:
         sensors = [[int(num) for num in re.findall(r'[-+]?\d+', text)] for text in file.readlines()]
@@ -31,6 +26,8 @@ def part1(filename):
     blocked -= {sensor[2] for sensor in sensors if sensor[1]==y or sensor[3]==y} # Remove actual beacon/sensor positions that block the line
     print("Part 1:", len(blocked))
 
+'''Brute-force through all the perimeter locations of each sensor which are within 0 < x,y < 4e6 and return the first outside of all sensors ranges.
+    We know that the correct spot must lie right outside a perimeter due to there only being a single correct solution.'''
 def part2(filename):
     with open(filename, "r") as file:
         sensors = [[int(num) for num in re.findall(r'[-+]?\d+', text)] for text in file.readlines()]
