@@ -1,4 +1,5 @@
 import re
+import time
 with open("2022\Day 15\input.txt", "r") as file:
     sensors = [[int(num) for num in re.findall(r'[-+]?\d+', text)] for text in file.readlines()]
 
@@ -44,5 +45,13 @@ def part2(filename):
                 print("Part 2:", 4000000*point[0]+point[1])
                 return
 
+start_time = time.time()
 part1("2022\Day 15\input.txt")
+print(f"{time.time() - start_time} seconds elapsed.")
+start_time2 = time.time()
 part2("2022\Day 15\input.txt")
+print(f"{time.time() - start_time2} seconds elapsed.")
+
+
+# 1.7 seconds for part 1
+# 379 seconds for part 2
