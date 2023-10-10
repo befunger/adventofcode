@@ -40,17 +40,12 @@ class Solution:
             freq = [(c, sub_string.count(c)) for c in set(sub_string)]
             letter, letter_count = max(freq, key=lambda x: x[1]) # Gets most frequent character in substring
             
-            print(f"{letter} is the most frequent in {sub_string} with count {letter_count}")
             if len(sub_string) - letter_count > k: # Too many errors, slide window
                 sub_string = sub_string[1:]
-                print(f"{len(sub_string) - letter_count} errors. Updating to {sub_string}")
             else: # Acceptable errors, update longest if applicable
-                print(f"Managable errors. Keeping expanded window of length {len(sub_string)}")
                 longest = max(longest, len(sub_string))
 
         return longest
 
 
-
-s = Solution()
-print(s.characterReplacement("AABABBA", 1))
+print(Solution().characterReplacement("AABABBA", 1))
