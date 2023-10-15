@@ -11,27 +11,18 @@ public:
         */
 
        // O(n) solution utilizing that a large product < k implies all subintervals < k without explicitly checking
-        int n = nums.size(); // Size of window included
         int start = 0;
         int end = 0;
-        int product = nums[start]; // First product is first  element
+        int product = 1;
         int valids = 0;
-        while(end < n){
-            if(product < k){
-                valids += end - start + 1; // n new subarrays in extended array of length n
-                end++;
-                if(end < n){
-                    product *= nums[end];
-                }
-            }
-            else{
+        while(end < nums.size()){
+            product *= nums[end];
+            while(product >= k && start <= end){
                 product /= nums[start]; // Shrink window
                 start++;
-                if(end<start){// Make sure start does not surpass end (Only happens if a single array element >= k)
-                    end = start;
-                    product = nums[start];
-                }
             }
+            valids += end - start + 1;
+            end++;
         }
         return valids;
 
