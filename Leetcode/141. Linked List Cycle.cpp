@@ -11,6 +11,8 @@ struct ListNode {
 class Solution {
 public:
     bool hasCycle(ListNode *head) {
+        /*Given the root of a linked list, return true/false based on if there's a loop in the list.*/
+
         /*Low memory approach with fast and slow pointer*/
         ListNode *fast_ptr = head;
         ListNode *slow_ptr = head;
