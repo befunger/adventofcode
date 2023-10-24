@@ -8,10 +8,37 @@ public:
         /*Given a list of non-overlapping intervals and a new interval return the new list of non-overlapping intervals
         after merging all necessary intervals with the new insertion. intervals are sorted on first index.*/
 
+                
+
+        /*In-place modification by finding index of insertion and combining proceeding elements*/
+        vector<vector<int>>::iterator low = lower_bound(intervals.begin(), intervals.end(), new_interval,
+            [](const vector<int>& a, const vector<int>& b){
+                return a[1] < b[0];
+        });
+
+        if(low == intervals.end()){ // If no bound, interval starts higher than all current
+            intervals.push_back(new_interval);
+            return intervals;
+        }
+
         
-        /*Find index of insertion (O(log n))*/
-        
-        /*Iterate forward while next index start is within interval*/
+        // Iterate forward while next interval overlaps
+        size_t index = low - intervals.begin();
+        auto high = low;
+        while(high != intervals.end() && intervals[index][0] <= new_interval[1]){
+            new_interval[0] = min(intervals[index][0], new_interval[0]);
+            new_interval[1] = max(intervals[index][1], new_interval[1]);
+            index++;
+            high++;
+        }
+
+        // Remove all merged interval and add new combined one
+        intervals.erase(low, high);
+        intervals.insert(low, new_interval);
+        return intervals;
+ 
+
+        /*O(n) solution iterating all intervals and building new array*/
         vector<vector<int>> merged_intervals;
 
         for(vector<int> interval : intervals){
