@@ -21,5 +21,20 @@ public:
 
         return target_value + k-1; // If we don't hit k:th index in array, remaining k dictates how much further to iterate
 
+
+        // Insight: Strictly increasing order means no duplicates
+        // In a full array, index N would have the value N+1 (0-indexing)
+        // If instead index N has some value P > N+1, we know that there are P-(N+1) numbers missing before it.
+        // This should be usable in a O(log n) binary search to find the number that has k numbers missing before it.
+        int low = 0;
+        int high = arr.size() - 1;
+
+        while(low <= high){ // Binary search for lowest index with k missing to its left
+            int mid = low + (high - low)/2;
+
+            if(arr[mid] - mid <= k){ low = mid + 1; } // arr[mid] - mid = number of missing on left
+            else{ high = mid - 1; }
+        }
+        return low + k; // index 5 has 3 missing on left => 3rd missing is 5+3=8
     }
 };
