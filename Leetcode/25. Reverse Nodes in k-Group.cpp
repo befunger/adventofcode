@@ -9,11 +9,19 @@ struct ListNode {
 class Solution {
 public:
     void reverseNextK(ListNode* &node, int K){
-        /*Given a node, reverses the proceeding K nodes in that list*/
+        /*Given a node, reverses the proceeding K nodes in that list.*/
+        
+        // If there are less than K nodes proceeding, do nothing
+        ListNode* temp = node;
+        for(int i=0; i < K; i++){
+            temp = temp->next;
+            if(!temp){return;}
+        }
+
         ListNode *prev = node;
         ListNode *curr = prev->next;
         ListNode *after;
-        for(int i = 0; i < K; i++){
+        for(int i = 1; i < K; i++){
             after = prev->next;
             prev->next = curr->next;
             curr->next = curr->next->next;
