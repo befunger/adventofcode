@@ -2,7 +2,7 @@ with open("AoC 2023\inputs\day2.txt", "r") as file:
     inp = [line.split(": ")[1] for line in file.readlines()]
 
 tot = 0
-for x,game in enumerate(inp, start=1):
+for x, game in enumerate(inp, start=1):
     viable = True
     draws = [item.strip('\n').split(" ") for turn in game.split("; ") for item in turn.split(", ")]
     for amount, color in draws:
@@ -13,7 +13,6 @@ for x,game in enumerate(inp, start=1):
             break
     if viable:
         tot += x
-
 print("Part 1:", tot)
 
 tot = 0
